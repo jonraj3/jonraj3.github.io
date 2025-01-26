@@ -136,24 +136,25 @@ for (let i = 0; i < formInputs.length; i++) {
 
 
 
-// page navigation variables
+// Page navigation variables
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
 const pages = document.querySelectorAll("[data-page]");
 
-// add event to all nav link
+// Add event to all navigation links
 for (let i = 0; i < navigationLinks.length; i++) {
   navigationLinks[i].addEventListener("click", function () {
+    // Remove 'active' class from all navigation links
+    navigationLinks.forEach(link => link.classList.remove("active"));
+    this.classList.add("active"); // Add 'active' to clicked link
 
-    for (let i = 0; i < pages.length; i++) {
-      if (this.innerHTML.trim().toLowerCase() === pages[i].dataset.page) {
-        pages[i].classList.add("active");
-        navigationLinks[i].classList.add("active");
-        window.scrollTo(0, 0);
+    // Show the corresponding page
+    for (let j = 0; j < pages.length; j++) {
+      if (this.innerHTML.trim().toLowerCase() === pages[j].dataset.page) {
+        pages[j].classList.add("active");
+        window.scrollTo(0, 0); // Scroll to top
       } else {
-        pages[i].classList.remove("active");
-        navigationLinks[i].classList.remove("active");
+        pages[j].classList.remove("active");
       }
     }
-
   });
 }
