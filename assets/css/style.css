@@ -1926,8 +1926,9 @@ textarea.form-input::-webkit-resizer { display: none; }
   color: red;
 }
 
+/* Portfolio Image Modal */
 #image-modal {
-  display: none; /* Default hidden */
+  display: none; /* Default: hidden */
   position: fixed;
   top: 0;
   left: 0;
@@ -1943,3 +1944,21 @@ textarea.form-input::-webkit-resizer { display: none; }
   display: flex; /* Show modal when active */
 }
 
+#modal-img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #fff;
+  border: none;
+  font-size: 24px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
