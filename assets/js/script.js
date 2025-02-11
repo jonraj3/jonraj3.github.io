@@ -152,4 +152,28 @@ closeBtn.addEventListener("click", () => (imageModal.style.display = "none"));
 imageModal.addEventListener("click", (e) => {
   if (e.target === imageModal) imageModal.style.display = "none";
 });
+	
+document.addEventListener("DOMContentLoaded", function () {
+  const modal = document.getElementById("image-modal");
+  const modalImg = document.getElementById("modal-img");
+  const closeBtn = document.querySelector(".close");
 
+  document.querySelectorAll(".enlarge-image").forEach(imgLink => {
+    imgLink.addEventListener("click", function (event) {
+      event.preventDefault();
+      const imgSrc = this.querySelector("img").src;
+      modal.style.display = "flex";
+      modalImg.src = imgSrc;
+    });
+  });
+
+  closeBtn.addEventListener("click", function () {
+    modal.style.display = "none";
+  });
+
+  modal.addEventListener("click", function (event) {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+});
