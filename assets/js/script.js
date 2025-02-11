@@ -100,14 +100,25 @@ const closeModal = document.querySelector(".modal-close");
 
 // Open Modal when clicking on an image
 if (portfolioLinks.length > 0 && imageModal) {
-  portfolioLinks.forEach(link => {
-    link.addEventListener("click", function (event) {
-      event.preventDefault();
-      modalImage.src = this.getAttribute("data-image");
-      modalTitleText.textContent = this.getAttribute("data-title");
-      imageModal.style.display = "flex";
-    });
+portfolioLinks.forEach(link => {
+  link.addEventListener("click", function (event) {
+    event.preventDefault();
+    modalImage.src = this.getAttribute("data-image");
+    modalTitleText.textContent = this.getAttribute("data-title");
+    imageModal.classList.add("active"); // Use CSS instead of setting display
   });
+});
+
+closeModal.addEventListener("click", function () {
+  imageModal.classList.remove("active");
+});
+
+window.addEventListener("click", function (event) {
+  if (event.target === imageModal) {
+    imageModal.classList.remove("active");
+  }
+});
+
 }
 
 // Close Modal when clicking the close button
