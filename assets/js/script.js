@@ -118,6 +118,7 @@ navigationLinks.forEach(link => {
 
 /* ========== 📌 NEW: Portfolio Image Enlargement ========== */
 // Select all images that should enlarge on click
+// Select all images that should enlarge on click
 const portfolioImages = document.querySelectorAll("[data-enlarge-img]");
 const imageModal = document.createElement("div");
 imageModal.id = "imageModal";
@@ -135,9 +136,14 @@ const closeBtn = imageModal.querySelector(".close");
 // Open image modal
 portfolioImages.forEach(img => {
   img.addEventListener("click", function () {
-    imageModal.style.display = "block";
-    modalImage.src = this.querySelector("img").src;
-    caption.innerHTML = this.querySelector("img").alt;
+    const image = this.querySelector("img"); // Ensure we select the correct image
+    if (!image) return; // Prevent errors if no image is found
+
+    modalImage.src = image.src;
+    caption.innerHTML = image.alt || "Enlarged Image";
+    
+    // Show the modal
+    imageModal.style.display = "flex";
   });
 });
 
@@ -146,3 +152,4 @@ closeBtn.addEventListener("click", () => (imageModal.style.display = "none"));
 imageModal.addEventListener("click", (e) => {
   if (e.target === imageModal) imageModal.style.display = "none";
 });
+
