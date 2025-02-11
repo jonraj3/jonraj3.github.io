@@ -612,6 +612,7 @@ main {
  * #testimonials-modal
  */
 
+ /**
 .modal-container {
   position: fixed;
   top: 0;
@@ -627,6 +628,58 @@ main {
   pointer-events: none;
   visibility: hidden;
 }
+*/
+
+/*-----------------------------------*\
+  # IMAGE ENLARGEMENT MODAL FIX
+\*-----------------------------------*/
+
+/* The Modal (Background) */
+.modal-container[data-enlarge-img] {
+  display: none;
+  position: fixed;
+  z-index: 1000; /* Ensures it's on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;  /* Centers horizontally */
+  align-items: center;  /* Centers vertically */
+}
+
+/* Modal Content (Image) */
+.modal-container[data-enlarge-img] .modal-content {
+  max-width: 90%;
+  max-height: 90vh;
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Caption */
+.modal-container[data-enlarge-img] #caption {
+  color: white;
+  text-align: center;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+/* Close Button */
+.modal-container[data-enlarge-img] .close {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+}
+
+.modal-container[data-enlarge-img] .close:hover {
+  color: red;
+}
+
 
 .modal-container::-webkit-scrollbar { display: none; }
 
