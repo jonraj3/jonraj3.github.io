@@ -153,27 +153,39 @@ imageModal.addEventListener("click", (e) => {
   if (e.target === imageModal) imageModal.style.display = "none";
 });
 	
-document.addEventListener("DOMContentLoaded", function () {
-  const modal = document.getElementById("image-modal");
-  const modalImg = document.getElementById("modal-img");
-  const closeBtn = document.querySelector(".close");
+'use strict';
 
-  document.querySelectorAll(".enlarge-image").forEach(imgLink => {
-    imgLink.addEventListener("click", function (event) {
-      event.preventDefault();
-      const imgSrc = this.querySelector("img").src;
-      modal.style.display = "flex";
-      modalImg.src = imgSrc;
+// Image Enlargement Modal
+document.addEventListener("DOMContentLoaded", function () {
+  const imageModal = document.createElement("div");
+  imageModal.id = "image-modal";
+  imageModal.classList.add("modal");
+  imageModal.innerHTML = `
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modal-img">
+  `;
+  document.body.appendChild(imageModal);
+
+  const modalImg = document.getElementById("modal-img");
+  const closeBtn = imageModal.querySelector(".close");
+
+  document.querySelectorAll(".project-item .enlarge-image img").forEach(image => {
+    image.addEventListener("click", function (event) {
+      event.stopPropagation(); // Stop propagation to prevent multiple event triggers
+      modalImg.src = this.src;
+      imageModal.style.display = "flex";
     });
   });
 
+  // Close modal when clicking the close button
   closeBtn.addEventListener("click", function () {
-    modal.style.display = "none";
+    imageModal.style.display = "none";
   });
 
-  modal.addEventListener("click", function (event) {
-    if (event.target === modal) {
-      modal.style.display = "none";
+  // Close modal when clicking outside the image
+  imageModal.addEventListener("click", function (event) {
+    if (event.target === imageModal) {
+      imageModal.style.display = "none";
     }
   });
 });
