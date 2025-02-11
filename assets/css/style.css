@@ -1925,3 +1925,21 @@ textarea.form-input::-webkit-resizer { display: none; }
 .modal-close:hover {
   color: red;
 }
+
+#image-modal {
+  display: none; /* Default hidden */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+#image-modal.active {
+  display: flex; /* Show modal when active */
+}
+
