@@ -1,32 +1,37 @@
 'use strict';
 
-// ======= ??? ELEMENT TOGGLE FUNCTION =======
+// Element toggle function
 const elementToggleFunc = function (elem) {
   elem.classList.toggle("active");
-};
+}
 
-// ======= ?? SIDEBAR TOGGLE =======
+// Sidebar variables
 const sidebar = document.querySelector("[data-sidebar]");
 const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 
+// Sidebar toggle functionality for mobile
 sidebarBtn.addEventListener("click", function () {
   elementToggleFunc(sidebar);
 });
 
-// ======= ?? TESTIMONIALS MODAL =======
+// Modal Variables for Testimonials
 const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
 const modalContainer = document.querySelector("[data-modal-container]");
 const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
 const overlay = document.querySelector("[data-overlay]");
+
+// Modal elements
 const modalImg = document.querySelector("[data-modal-img]");
 const modalTitle = document.querySelector("[data-modal-title]");
 const modalText = document.querySelector("[data-modal-text]");
 
+// Modal toggle function
 const testimonialsModalFunc = function () {
   modalContainer.classList.toggle("active");
   overlay.classList.toggle("active");
 };
 
+// Enable testimonials modal functionality
 testimonialsItem.forEach(item => {
   item.addEventListener("click", function () {
     modalImg.src = this.querySelector("[data-testimonials-avatar]").src;
@@ -37,26 +42,30 @@ testimonialsItem.forEach(item => {
   });
 });
 
+// Close modal when clicking close button or overlay
 modalCloseBtn.addEventListener("click", testimonialsModalFunc);
 overlay.addEventListener("click", testimonialsModalFunc);
 
-// ======= ?? FILTER FUNCTIONALITY =======
+// Custom select variables
 const select = document.querySelector("[data-select]");
 const selectItems = document.querySelectorAll("[data-select-item]");
 const selectValue = document.querySelector("[data-selecct-value]");
 const filterBtn = document.querySelectorAll("[data-filter-btn]");
-const filterItems = document.querySelectorAll("[data-filter-item]");
 
+// Toggle select dropdown
 select.addEventListener("click", function () {
   elementToggleFunc(this);
 });
 
+// Filter items based on selection
+const filterItems = document.querySelectorAll("[data-filter-item]");
 const filterFunc = function (selectedValue) {
   filterItems.forEach(item => {
     item.classList.toggle("active", selectedValue === "all" || selectedValue === item.dataset.category);
   });
 };
 
+// Apply filter when clicking select items
 selectItems.forEach(item => {
   item.addEventListener("click", function () {
     let selectedValue = this.innerText.toLowerCase();
@@ -66,6 +75,7 @@ selectItems.forEach(item => {
   });
 });
 
+// Apply filter when clicking filter buttons
 let lastClickedBtn = filterBtn[0];
 filterBtn.forEach(btn => {
   btn.addEventListener("click", function () {
@@ -79,7 +89,7 @@ filterBtn.forEach(btn => {
   });
 });
 
-// ======= ?? CONTACT FORM VALIDATION =======
+// Contact form validation
 const form = document.querySelector("[data-form]");
 const formInputs = document.querySelectorAll("[data-form-input]");
 const formBtn = document.querySelector("[data-form-btn]");
@@ -90,10 +100,11 @@ formInputs.forEach(input => {
   });
 });
 
-// ======= ?? PAGE NAVIGATION =======
+// Page navigation variables
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
 const pages = document.querySelectorAll("[data-page]");
 
+// Add navigation click event
 navigationLinks.forEach(link => {
   link.addEventListener("click", function () {
     pages.forEach(page => {
@@ -105,7 +116,46 @@ navigationLinks.forEach(link => {
   });
 });
 
-// ======= ?? PORTFOLIO IMAGE ENLARGEMENT =======
+/* ========== 📌 NEW: Portfolio Image Enlargement ========== */
+// Select all images that should enlarge on click
+// Select all images that should enlarge on click
+const portfolioImages = document.querySelectorAll("[data-enlarge-img]");
+const imageModal = document.createElement("div");
+imageModal.id = "imageModal";
+imageModal.innerHTML = `
+  <span class="close">&times;</span>
+  <img class="modal-content" id="modalImage">
+  <div id="caption"></div>
+`;
+document.body.appendChild(imageModal);
+
+const modalImage = document.getElementById("modalImage");
+const caption = document.getElementById("caption");
+const closeBtn = imageModal.querySelector(".close");
+
+// Open image modal
+portfolioImages.forEach(img => {
+  img.addEventListener("click", function () {
+    const image = this.querySelector("img"); // Ensure we select the correct image
+    if (!image) return; // Prevent errors if no image is found
+
+    modalImage.src = image.src;
+    caption.innerHTML = image.alt || "Enlarged Image";
+    
+    // Show the modal
+    imageModal.style.display = "flex";
+  });
+});
+
+// Close modal when clicking the close button or outside the image
+closeBtn.addEventListener("click", () => (imageModal.style.display = "none"));
+imageModal.addEventListener("click", (e) => {
+  if (e.target === imageModal) imageModal.style.display = "none";
+});
+	
+'use strict';
+
+// Image Enlargement Modal
 document.addEventListener("DOMContentLoaded", function () {
   const imageModal = document.createElement("div");
   imageModal.id = "image-modal";
@@ -121,16 +171,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.querySelectorAll(".project-item .enlarge-image img").forEach(image => {
     image.addEventListener("click", function (event) {
-      event.stopPropagation();
+      event.stopPropagation(); // Stop propagation to prevent multiple event triggers
       modalImg.src = this.src;
       imageModal.style.display = "flex";
     });
   });
 
+  // Close modal when clicking the close button
   closeBtn.addEventListener("click", function () {
     imageModal.style.display = "none";
   });
 
+  // Close modal when clicking outside the image
   imageModal.addEventListener("click", function (event) {
     if (event.target === imageModal) {
       imageModal.style.display = "none";
